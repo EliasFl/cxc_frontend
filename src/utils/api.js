@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/",
+  baseURL: "https://warm-earth-04408.herokuapp.com/",
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json"
