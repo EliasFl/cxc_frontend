@@ -15,7 +15,6 @@ import NumberFormat from 'react-number-format';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,8 +73,8 @@ const EntradaContable = () => {
     const saveEntradaContable = (e) => {
         e.preventDefault();
         const proxy = "https://mysterious-chamber-09938.herokuapp.com/"
-        const targetUrl = "https://sistemacontabilidad4.azurewebsites.net/api/ApiEntradaContables"
-
+        const targetUrl = "https://sistemacontabilidad5.azurewebsites.net/api/ApiEntradaContables"
+        
         setLoading(true);
         setOpen(false);
         const data = {
