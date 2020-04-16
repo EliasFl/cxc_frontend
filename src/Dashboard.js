@@ -25,6 +25,8 @@ import ClientsPage from "./pages/ClientsPage";
 import DocumentsPage from "./pages/DocumentsPage";
 import TransactionsPage from "./pages/TransactionsPage";
 import SeatsPage from "./pages/SeatsPage";
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import EntradaContable from "./pages/EntradaContable";
 
 const drawerWidth = 240;
 
@@ -81,6 +83,7 @@ function Dashboard(props) {
     {name: "Documents", path: "/documents", icon: <DescriptionIcon />},
     {name: "Transactions", path: "/transactions", icon: <AttachMoneyIcon />},
     {name: "Seats", path: "/seats", icon: <AssignmentIcon />},
+    {name: "Entrada contable", path: "/entradaContable", icon: <BusinessCenterIcon />}
   ]
 
   const drawer = (
@@ -168,6 +171,9 @@ function Dashboard(props) {
             </Route>
             <Route exact path="/transactions">
               <TransactionsPage />
+            </Route>
+            <Route exact path="/entradaContable">
+              <EntradaContable />
             </Route>
           </Switch>
       </main>
