@@ -14,7 +14,6 @@ import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +29,7 @@ const EntradaContable = () => {
     const [open, setOpen] = useState(false);
     const date = new Date();
     const [entradaContable, setEntradaContable] = useState({
-        descripción: "",
+        Descripción: "",
         montoDebito: 0,
         montoCredito: 0,
         monto: 0,
@@ -72,6 +71,8 @@ const EntradaContable = () => {
 
     const saveEntradaContable = (e) => {
         e.preventDefault();
+        const proxy = "https://mysterious-chamber-09938.herokuapp.com/"
+        const targetUrl = "https://sistemacontabilidad4.azurewebsites.net/api/ApiEntradaContables"
 
         const data = {
             ...entradaContable,
@@ -80,23 +81,33 @@ const EntradaContable = () => {
             monto: Number(entradaContable.monto),
             idAuxiliar: Number(entradaContable.idAuxiliar)
         }
-        axios
-            .post("https://sistemacontabilidad4.azurewebsites.net/api/ApiEntradaContables", data)
+        fetch(proxy + targetUrl, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers:{
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                mode: 'no-cors'
+            }
+        })
             .then(response => {
                 Swal.fire({
                     title: "Entrada contable creada",
                     icon: "success"
                 });
+
+                setOpen(false);
+                clearFields();
             })
             .catch(error => {
                 Swal.fire({
                     title: "Error",
                     icon: "error"
                 });
-            });
 
-        setOpen(false);
-        clearFields();
+                setOpen(false);
+                clearFields();
+            });
     }
 
     return (
@@ -116,11 +127,11 @@ const EntradaContable = () => {
                         <TextField
                             autoFocus
                             margin="dense"
-                            value={entradaContable.descripcion}
+                            value={entradaContable.Descripción}
                             onChange={handleChange}
-                            name="descripcion"
-                            id="descripcion"
-                            label="Descripcion"
+                            name="Descripción"
+                            id="Descripción"
+                            label="Descripción"
                             type="text"
                             fullWidth
                         />
