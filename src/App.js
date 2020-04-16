@@ -42,14 +42,14 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">
+        {/* <Route path="/login">
           <LoginPage />
-        </Route>
-        <PrivateRoute path="/">
+        </Route> */}
+        <Route path="/">
           <Dashboard>
-            <AuthButton />
+        {/* <AuthButton /> */}
           </Dashboard>
-        </PrivateRoute>
+        </Route>
       </Switch>
     </Router>
   )

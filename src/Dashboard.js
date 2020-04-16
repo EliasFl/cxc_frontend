@@ -118,7 +118,7 @@ function Dashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            Cuentas por cobrar
+            Dashboard
           </Typography>
           {props.children}
         </Toolbar>
@@ -158,7 +158,15 @@ function Dashboard(props) {
         <div className={classes.toolbar} />
         <Switch>
           <Route exact path="/">
-            <h1 className="is-size-1">Home page</h1>
+            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <img 
+                src="https://cdn.unapec.edu.do/portal-dynamic/Documentos/descargas/logo_principal/logo-unapec_color.jpg" 
+                style={{width: "50em"}}
+              />
+              <h1 className="is-size-1" style={{textAlign: "center"}}>
+              Cuentas por cobrar
+            </h1>
+            </div>
           </Route>
             <Route exact path="/clients">
               <ClientsPage />

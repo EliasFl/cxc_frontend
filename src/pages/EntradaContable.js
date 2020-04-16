@@ -15,6 +15,8 @@ import NumberFormat from 'react-number-format';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EntradaContable = () => {
     const [open, setOpen] = useState(false);
-    const date = new Date();
+    const [loading, setLoading] = useState(false);
     const [entradaContable, setEntradaContable] = useState({
         Descripción: "",
         montoDebito: 0,
@@ -74,6 +76,8 @@ const EntradaContable = () => {
         const proxy = "https://mysterious-chamber-09938.herokuapp.com/"
         const targetUrl = "https://sistemacontabilidad4.azurewebsites.net/api/ApiEntradaContables"
 
+        setLoading(true);
+        setOpen(false);
         const data = {
             ...entradaContable,
             montoDebito: Number(entradaContable.montoDebito),
@@ -96,7 +100,7 @@ const EntradaContable = () => {
                     icon: "success"
                 });
 
-                setOpen(false);
+                setLoading(false)
                 clearFields();
             })
             .catch(error => {
@@ -104,8 +108,7 @@ const EntradaContable = () => {
                     title: "Error",
                     icon: "error"
                 });
-
-                setOpen(false);
+                setLoading(false)
                 clearFields();
             });
     }
@@ -113,7 +116,6 @@ const EntradaContable = () => {
     return (
         <section className="section">
             <h1 className="is-size-1">Entrada contable</h1>
-
             <Button onClick={openDialog} variant="contained" color="primary">
                 Agregar entrada contable
             </Button>
@@ -246,6 +248,7 @@ const EntradaContable = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            {loading ? <LinearProgress style={{marginTop: "50px"}} /> : null}
         </section>
     )
 }
