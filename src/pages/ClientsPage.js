@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import api from "../utils/api";
 import Swal from "sweetalert2";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const clientData = {
   name: "",
@@ -14,6 +16,7 @@ const ClientsPage = () => {
   const [addForm, setAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [client, setClient] = useState(clientData);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getClients();
@@ -22,6 +25,7 @@ const ClientsPage = () => {
   const getClients = async () => {
     const result = await api.get("/clientes");
     setUsers(result.data);
+    setLoading(false);
   };
 
   const editClient = e => {
@@ -184,6 +188,7 @@ const ClientsPage = () => {
           Agregar un nuevo cliente
         </a>
       )}
+      {loading ? <LinearProgress style={{marginTop: "50px"}} /> : null}
       {users.length > 0 ? (
         <table className="table is-fullwidth">
           <thead>

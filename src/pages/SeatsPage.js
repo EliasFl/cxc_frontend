@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../utils/api";
 import Swal from "sweetalert2";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const asientoContableData = {
   descripcion: "",
@@ -18,6 +19,8 @@ const AsientosContablesPage = () => {
   const [addForm, setAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [asientoContable, setAsientoContable] = useState(asientoContableData);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const documentClients = async () => {
@@ -32,6 +35,7 @@ const AsientosContablesPage = () => {
   const getAsientosContables = async () => {
     const result = await api.get("/asientosContables");
     setAsientosContables(result.data);
+    setLoading(false);
   };
 
   const onChange = e => {
@@ -106,6 +110,7 @@ const AsientosContablesPage = () => {
   return (
     <section className="section">
       <h1 className="is-size-1">Asientos contables</h1>
+      {loading ? <LinearProgress style={{marginTop: "50px"}} /> : null}
       {addForm ? (
         <form className="form">
 

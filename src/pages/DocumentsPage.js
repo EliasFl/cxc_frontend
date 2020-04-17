@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../utils/api";
 import Swal from "sweetalert2";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const documentData = {
   descripcion: "",
@@ -13,6 +14,7 @@ const DocumentsPage = ({}) => {
   const [addForm, setAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [document, setDocument] = useState(documentData);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getTiposDocumentos();
@@ -21,6 +23,7 @@ const DocumentsPage = ({}) => {
   const getTiposDocumentos = async () => {
     const result = await api.get("/tiposDocumentos");
     setDocuments(result.data);
+    setLoading(false);
   };
 
   const onChange = e => {
@@ -104,6 +107,7 @@ const DocumentsPage = ({}) => {
   return (
     <section className="section">
       <h1 className="is-size-1">Tipo de Documentos</h1>
+      {loading ? <LinearProgress style={{marginTop: "50px"}} /> : null}
       {addForm ? (
         <form className="form">
           <div className="field">

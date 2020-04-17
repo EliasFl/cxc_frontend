@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../utils/api";
 import Swal from "sweetalert2";
 import MaterialTable from 'material-table'
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const transacctionData = {
   tipoMovimiento: "DB",
@@ -19,6 +20,7 @@ const TransactionsPage = () => {
   const [addForm, setAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
   const [transaction, setTransaction] = useState(transacctionData);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const documentData = async () => {
@@ -39,6 +41,7 @@ const TransactionsPage = () => {
   const getTransacciones = async () => {
     const result = await api.get("/transacciones");
     setTransactions(result.data);
+    setLoading(false);
   };
 
   const onChange = e => {
@@ -189,6 +192,7 @@ const TransactionsPage = () => {
   return (
     <section className="section">
       <h1 className="is-size-1">Transacciones</h1>
+      {loading ? <LinearProgress style={{marginTop: "50px"}} /> : null}
       {addForm ? (
         <form className="form">
           <div className="field">
